@@ -7,6 +7,8 @@ import { Server as HttpServer } from "http";
 import type { Http2SecureServer, Http2Server, Http2ServerRequest, Http2ServerResponse } from "http2";
 import { Server as HttpsServer } from "https";
 
+type CustomAssertionCookie = supertest.cookies["CustomAssertionCookie"];
+
 const app = express();
 const request = supertest(app);
 
@@ -99,3 +101,11 @@ request.get("/")
     .end((err: any, res: supertest.Response) => {
         if (err) throw err;
     });
+
+/* Cookie tests */
+function customAssertion(
+    req: { cookies: supertest.cookies.CustomAssertionCookie[] },
+    res: { cookies: supertest.cookies.CustomAssertionCookie[] },
+): boolean {
+    throw new Error("not implemented");
+}
